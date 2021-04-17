@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+#  internet-bank:
+#    container_name: config-server
+#    build: .
+#    ports:
+#      - "8888:8888"
+#    restart: on-failure
+
+  db:
+    image:  mysql
+    restart: always
+    container_name: db_customer
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+    

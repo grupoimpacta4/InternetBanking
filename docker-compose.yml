@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+    config:
+       build:
+          context: ./config-server
+          dockerfile: Dockerfile
+       ports:
+         - 8888:8888
+
+    login:
+      build:
+         context: ./login-service
+         dockerfile: Dockerfile
+      ports:
+        - 9005:9005
+    
+    bankaccount:
+       build:
+         context: ./bankAccount-service
+         dockerfile: Dockerfile
+       ports:
+         - 9011:9011
+    oauth:
+        build:
+          context: ./oauth-service
+          dockerfile: Dockerfile
+        ports:
+         - 9007:9007
+    
+    transaction:
+        build:
+          context: ./transaction-service
+          dockerfile: Dockerfile
+        ports:
+          - 9009:9009
+
+ 
+   

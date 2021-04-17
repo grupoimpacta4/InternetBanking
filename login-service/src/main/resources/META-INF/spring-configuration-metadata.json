@@ -1,0 +1,23 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.impacta.transaction.config.SecurityProperties",
+      "name": "security",
+      "type": "com.impacta.transaction.config.SecurityProperties"
+    },
+    {
+      "sourceType": "com.impacta.transaction.config.SecurityProperties",
+      "name": "security.jwt",
+      "sourceMethod": "getJwt()",
+      "type": "com.impacta.transaction.SecurityProperties$JwtProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.impacta.transaction.config.SecurityProperties$JwtProperties",
+      "name": "security.jwt.public-key",
+      "type": "org.springframework.core.io.Resource"
+    }
+  ]
+}

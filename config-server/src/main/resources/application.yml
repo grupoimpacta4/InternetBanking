@@ -1,0 +1,18 @@
+server:
+  port: 8888
+
+info:
+  component: Config Server
+
+spring:
+  banner:
+    location: classpath:banner.txt
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/andradesampaio/microservice-repo
+          search-paths: customer
+
