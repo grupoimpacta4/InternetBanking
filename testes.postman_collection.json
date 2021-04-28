@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "6516f7d1-7855-4072-a5bf-b5b6c07856de",
+		"name": "testes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autenticação",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"bearToken\", postman.getResponseHeader(\"Authorization\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\" : \"32345678878\",\n  \"password\" : \"password\"\n \n}\n\n"
+				},
+				"url": {
+					"raw": "http://localhost:9005/login/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9005",
+					"path": [
+						"login",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adicionando Transaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"bearToken\", postman.getResponseHeader(\"Authorization\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTY5MDQyMTgsInVzZXJfbmFtZSI6IjM3NDQyNzg5ODIyIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6IjFlZWExMTNhLTNkYWItNGZhMS05YjcxLWI3NmU2NzJjY2I0NiIsImNsaWVudF9pZCI6ImNsaWVudElkIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.WIPH3GM2BvCrJSZjYuzs_HCkSAcEFpa9NVmR49GOo7TpL8506aqBP_9y-jTzGboZbBwXxKdtJcol6FB1BMwFIbKHxRxwKRNZMIiAsa3LOA52CSw62Dc10iE7apPNPrr47ISU7T73Y_eTydhtQxtRnUqIRwWQpWLakqfzxEPqMphpIt_aaXhZNf0jrqB6XJMHrvukVRc9Wu0T2PBYdQcIXP-GQHp3jdsDKXe6cFA0btrqnkWk7sbUk8TzxWyCd0PXIB14chvtxgiIKbzEZbkKEYsoBnVSgP68MqR20rLmmiOVqi7FuvPxRCMVFvz516gR8SPIkBOV_7mv1i1qvviqoQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountId\":1,\n    \"valor\" :  150.0,\n    \"descricao_transacao\":\"teste_aprovado\",\n\t\"statusLancamento\":1,\n\t\"descricaoStatus\":\"Aprovado\",\n\t\"tipoLancamentoId\":1,\n\t\"moeda\":\"Real\",\n\t\"tipo_operacao\":\"C\"\n}\n"
+				},
+				"url": {
+					"raw": "localhost:9009/transaction/addTransaction",
+					"host": [
+						"localhost"
+					],
+					"port": "9009",
+					"path": [
+						"transaction",
+						"addTransaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Saldo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"bearToken\", postman.getResponseHeader(\"Authorization\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTg0MzkxMjEsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiaF9YY2JBTkswUWtMMENRZ0k1R2MzX01lNVRJIiwiY2xpZW50X2lkIjoiY2xpZW50SWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.dmjoGIxSGLLNVKSATtoFbL9VtVchR4nCHrM60CZbw9CXs7ufRlQHws75J0lInTJ_ZGObM-LZk4ZqBb_RVy4oEwQiv4sKaCNmocQUfirSPIuJ_EwmYuBwOhi4ucPHngujtvcxcvJ1IaNCCwlV75i9m8-MTB662ZN5gzEH5ef0F-E08uV09Jb1KqgcRbeW16vpnXUa_WhO8pbOQPcJEboe76ijNG8dcu-gOm2vcYSkI2E7omBoXokwW8zXoUrZvWZSs5L2upIx6aLMsPIycvuAqv0OphPW9leaekF4Bbhyovjl9PJs_4FxjhhcWcDcyTfuQqZKr4bAmd6fNSertIy3gw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \n}\n"
+				},
+				"url": {
+					"raw": "localhost:9009/transaction/balance",
+					"host": [
+						"localhost"
+					],
+					"port": "9009",
+					"path": [
+						"transaction",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Extrato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"bearToken\", postman.getResponseHeader(\"Authorization\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTgwMzE1ODQsInVzZXJfbmFtZSI6IjMyMzQ1Njc4ODI4IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6InQ5S0gyNlJxdTR0VWhGSGs4X1BaMENEdnZaNCIsImNsaWVudF9pZCI6ImNsaWVudElkIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.EN-IYmoMcHNeWbCA3QHa0VTEA-yZfXWkfTsjgFgKoFT08D-AOgNbAzxtnhT6MKenuMGnekCsUTbSNsPd0y1lhj8xnJmQ8_HNQ5Dp_Bnf1YHgJpxB93mj4QM3R9ACsImeASo1cegte_c8cg-_RgQav3qFtq03GRMW4YkHLe6u94P0bHjh56BZeXlGTA1wNSiIBtbZCWUB7uBFGBIN_W3evHzWJf-D35_WZ0C3cIiWSLTJoUEBz2yO18dDgHGo0zJHz-fxNkPbt6yN0tJVZpWzpRBUXD1LEWk2TFi4yqxWGrrUcpL8vSWAx1M6h1M-eWi2HO7PBsGbejFJOwU7XM6R3A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountId\":1,\n    \"status\":1\n  \n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:9009/transaction/extract",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9009",
+					"path": [
+						"transaction",
+						"extract"
+					],
+					"query": [
+						{
+							"key": "Authorization",
+							"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTc5MjM1NDgsInVzZXJfbmFtZSI6IjMyMzQ1Njc4OTUyIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6ImNfMXlaaVQ4ZWx5ZUw3TUMyUlE5cDR6bVFQdyIsImNsaWVudF9pZCI6ImNsaWVudElkIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.JB4OwPUb_Clt_2fx5dq9FdZOxSar3TnmE6uiZo_fH-D91H161KU9CPIOlEAc042M_qQ0uOibdTE3KCVAx7uyTy18fjiSoSsHVvcxUw7W5IovcIupwQUeGs8QDgO_RyKyl56jVVc6b3vsk9IcCzOR4ESNxx9I4mhN79KiZxUsdzf5ZKpqFdOJPW2GGW3YizTTRLP-qX98KLlx8Wp4yjLw8P2_-1_YnnJf2jlmMownf8TAezCNdtvkeHMP04fTGdmnLDmym463ctoOIVUnFiQAhg6vzjdIqcSue65BWiU0roid0zAv4fnDziDRvVR8_ogU2f1d97b8Fs8lBNWNqCwGrg",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deposito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"bearToken\", postman.getResponseHeader(\"Authorization\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTgwMzE5OTYsInVzZXJfbmFtZSI6IjMyMzQ1Njc4ODI4IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6InhmZDFZZmpwQW42d3A5anp2WExZZkswcGtFQSIsImNsaWVudF9pZCI6ImNsaWVudElkIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.io9QnKRQ0vdXIGQ9Gl6dxsdnVRqJNRcQSnsbC3VnjZMQEzJEpUqXFaFfIqRQY_m2YxOdZmBRV9_FLfWHoWnvWhs2DVcmcFtD6691KzkVvLD5dqO0kT_HywQfyrp3BttHhhBkzPudght9mU3GnPK1Ybw4d3KZau5bw4Xzr0GRuUi2sluUVq8Io4VDz8YxZN7EMI9GW5ZTIWx5zWX_APrLLyLSA9pwxKnOvJdxUdbGdZf73zNbMYobQeZ-QOnaRGxbuHGBIW44zDznwS81nOGimpeAtCFbkrBva5cA--XZoDCZ-koaV-VuhzhvbXHTBnTRDOiPB3-C_TUH4XmJcWcshw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountId\":112231559,\n    \"value\":15,\n    \"description_extract\":\"Testando deposito 15\"\n  \n}\n"
+				},
+				"url": {
+					"raw": "localhost:9009/transaction/deposit",
+					"host": [
+						"localhost"
+					],
+					"port": "9009",
+					"path": [
+						"transaction",
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retirada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"bearToken\", postman.getResponseHeader(\"Authorization\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTgwMzE5OTYsInVzZXJfbmFtZSI6IjMyMzQ1Njc4ODI4IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6InhmZDFZZmpwQW42d3A5anp2WExZZkswcGtFQSIsImNsaWVudF9pZCI6ImNsaWVudElkIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.io9QnKRQ0vdXIGQ9Gl6dxsdnVRqJNRcQSnsbC3VnjZMQEzJEpUqXFaFfIqRQY_m2YxOdZmBRV9_FLfWHoWnvWhs2DVcmcFtD6691KzkVvLD5dqO0kT_HywQfyrp3BttHhhBkzPudght9mU3GnPK1Ybw4d3KZau5bw4Xzr0GRuUi2sluUVq8Io4VDz8YxZN7EMI9GW5ZTIWx5zWX_APrLLyLSA9pwxKnOvJdxUdbGdZf73zNbMYobQeZ-QOnaRGxbuHGBIW44zDznwS81nOGimpeAtCFbkrBva5cA--XZoDCZ-koaV-VuhzhvbXHTBnTRDOiPB3-C_TUH4XmJcWcshw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountId\":112231559,\n    \"value\":4,\n    \"description_extract\":\"Retirando valor 15\"\n  \n}\n"
+				},
+				"url": {
+					"raw": "localhost:9009/transaction/withdrawal",
+					"host": [
+						"localhost"
+					],
+					"port": "9009",
+					"path": [
+						"transaction",
+						"withdrawal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TransferByCPF",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"bearToken\", postman.getResponseHeader(\"Authorization\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTgwMzE5OTYsInVzZXJfbmFtZSI6IjMyMzQ1Njc4ODI4IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6InhmZDFZZmpwQW42d3A5anp2WExZZkswcGtFQSIsImNsaWVudF9pZCI6ImNsaWVudElkIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.io9QnKRQ0vdXIGQ9Gl6dxsdnVRqJNRcQSnsbC3VnjZMQEzJEpUqXFaFfIqRQY_m2YxOdZmBRV9_FLfWHoWnvWhs2DVcmcFtD6691KzkVvLD5dqO0kT_HywQfyrp3BttHhhBkzPudght9mU3GnPK1Ybw4d3KZau5bw4Xzr0GRuUi2sluUVq8Io4VDz8YxZN7EMI9GW5ZTIWx5zWX_APrLLyLSA9pwxKnOvJdxUdbGdZf73zNbMYobQeZ-QOnaRGxbuHGBIW44zDznwS81nOGimpeAtCFbkrBva5cA--XZoDCZ-koaV-VuhzhvbXHTBnTRDOiPB3-C_TUH4XmJcWcshw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type_account_from\":2,\n    \"type_account_to\":1,\n    \"document_to\":\"32345678828\",\n    \"value\":1,\n    \"description_extract\":\"Testando ted\"\n \n}\n"
+				},
+				"url": {
+					"raw": "localhost:9009/transaction/transferByCPF",
+					"host": [
+						"localhost"
+					],
+					"port": "9009",
+					"path": [
+						"transaction",
+						"transferByCPF"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
