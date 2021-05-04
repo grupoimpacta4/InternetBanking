@@ -1,5 +1,7 @@
 package com.impacta.transaction.controller;
 
+ 
+
 import java.util.Locale;
 
 import javax.annotation.Resource;
@@ -7,12 +9,11 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource; 
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource; 
 import org.springframework.core.env.Environment;
 
 import com.google.gson.Gson;
-import com.impacta.transaction.model.Message;
+import com.impacta.transaction.model.Message; 
 
 public abstract class AbstractController {
 
@@ -36,7 +37,7 @@ public abstract class AbstractController {
 	 
 	public MessageSource messageSourceReturn() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasename("messages/messages_pt_BR");
+		messageSource.setBasename("messages/messages");
 		System.out.println("Mensagem ==== " + environment.getRequiredProperty(PROPERTY_NAME_MESSAGESOURCE_BASENAME));
 		messageSource.setUseCodeAsDefaultMessage(Boolean.parseBoolean(
 				environment.getRequiredProperty(PROPERTY_NAME_MESSAGESOURCE_USE_CODE_AS_DEFAULT_MESSAGE)));
@@ -50,7 +51,7 @@ public abstract class AbstractController {
 		messageSource=messageSourceReturn();
 		msg = new Message();
 		LOGGER.info("Adding error message with code: " + code + " and params: " + params);
-		Locale current = LocaleContextHolder.getLocale();
+		Locale current = Locale.US;
 		LOGGER.info("Current locale is " + current);
 		String localizedErrorMessage = messageSource.getMessage(code, params, current);
 		LOGGER.info("Localized message is: " + localizedErrorMessage);
@@ -63,13 +64,12 @@ public abstract class AbstractController {
 		messageSource=messageSourceReturn();
 		msg = new Message();
 		LOGGER.info("Adding feedback message with code: " + code + " and params: " + params);
-		Locale current = LocaleContextHolder.getLocale();
+		Locale current = Locale.US;
 		LOGGER.info("Current locale is " + current);
 		String localizedFeedbackMessage = messageSource.getMessage(code, params, current);
 		LOGGER.info("Localized message is: " + localizedFeedbackMessage);
 		msg.setStatus("true");
-		msg.setMessage(localizedFeedbackMessage);
-		System.out.println("Saindo mensagem de erro");
+		msg.setMessage(localizedFeedbackMessage); 
 		msg.setObject(params);
 		return gson.toJson(msg);
 	}

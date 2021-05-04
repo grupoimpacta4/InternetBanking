@@ -21,11 +21,14 @@ import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.log4j.Logger; 
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.impacta.transaction.model.Balance;
@@ -58,59 +62,79 @@ import io.jsonwebtoken.UnsupportedJwtException;
 public class TransactionController2 {
 
 	public static void main(String[] args) throws Exception {
+		HttpHeaders requestHeaders = new HttpHeaders();
+		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity request = new HttpEntity<>(requestHeaders);
+		RestTemplate restTemplate = new RestTemplate(); // 1
+		String url = "http://localhost:9011/v1/customers/12345678901"; // 2
+		ResponseEntity<ResponseDto> response = restTemplate.exchange(url, HttpMethod.GET, request, ResponseDto.class);
+
 		System.out.println("executando código");
-		long account= returnAccount("32345678952", 2);
-		System.out.println("Account = "+account);
-		System.out.println("executando código 1");
-		TransactionController.returnAccountPerUser("32345678952");
+		long account = returnAccount("12345678901", 1); 
+		long accountP = returnAccount("12345678901", 2); 
+		System.out.println("Account "+account);
+		System.out.println("Account "+accountP);
+		returnAccountPerUser("12345678901");
+		System.out.println(returnAccountPerUser("12345678901").getCurrentAccount().getAccountNumber());
+		System.out.println(returnAccountPerUser("12345678901").getSavingsAccount().getAccountNumber());
+		
 	}
 
 	public static long returnAccount(String cpf, int type) throws Exception {
 
-		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-		HttpGet httpget = new HttpGet("http://localhost:9191/v1/customers/" + cpf);
-		System.out.println("url =  " + httpget.getURI());
-		try {
-			org.apache.http.HttpEntity httpResponse = httpClient.execute(httpget).getEntity();
+		HttpHeaders requestHeaders = new HttpHeaders();
+		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity request = new HttpEntity<>(requestHeaders);
+		RestTemplate restTemplate = new RestTemplate(); // 1
+		String url = "http://localhost:9011/v1/customers/12345678901"; // 2
+		ResponseEntity<ResponseDto> response = restTemplate.exchange(url, HttpMethod.GET, request, ResponseDto.class);
 
-			BufferedReader in = new BufferedReader(new InputStreamReader(httpResponse.getContent()));
-			String inputLine = "";
-			String body = "";
-			while ((inputLine = in.readLine()) != null) {
-				body = body + inputLine;
+		if (type == 1) {
+			if (response.getBody().getCurrentAccount().getStatus() == false) {
+				return -1;
 			}
-			System.out.println("body " + body);
-			if(body.contains("Customer not found")) {
-				return 0;
-			}
-			
-			ObjectMapper mapper = new ObjectMapper();
-			ResponseDto map = mapper.readValue(body, ResponseDto.class);
-			System.out.println(map.getEmail());
-			System.out.println(map.getCurrentAccount().getAccountNumber());
-			System.out.println(map.getCurrentAccount().getCheckDigit());
-
-			if (type == 1) {
-				if (map.getCurrentAccount().getStatus() == false) {
-					return -1;
-				}
-				String accountNumber = map.getCurrentAccount().getAccountNumber().toString()+map.getCurrentAccount().getCheckDigit();
-				System.out.println(accountNumber);
-			}
-			if (type == 2) {
-				if (map.getSavingsAccount().getStatus() == false) {
-					System.out.println("Retornou");
-					return -1;
-				}
-				String accountNumber = map.getCurrentAccount().getAccountNumber().toString()+map.getCurrentAccount().getCheckDigit();
-				System.out.println(accountNumber);
-				return Integer.parseInt(accountNumber);
-			}
-
-		} catch (HttpHostConnectException httpex) {
-			throw httpex;
+			String accountNumber = response.getBody().getCurrentAccount().getAccountNumber().toString()
+					+ response.getBody().getCurrentAccount().getCheckDigit();
+			System.out.println(accountNumber);
 		}
+		if (type == 2) {
+			if (response.getBody().getSavingsAccount().getStatus() == false) {
+				System.out.println("Retornou");
+				return -1;
+			}
+			String accountNumber = response.getBody().getSavingsAccount().getAccountNumber().toString()
+					+ response.getBody().getSavingsAccount().getCheckDigit();
+			System.out.println(accountNumber);
+			return Integer.parseInt(accountNumber);
+		}
+
 		return 0;
 	}
+	
+	public static ResponseDto returnAccountPerUser(String cpf) throws Exception {
+
+ 		try {
+			HttpHeaders requestHeaders = new HttpHeaders();
+			requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity request = new HttpEntity<>(requestHeaders);
+			RestTemplate restTemplate = new RestTemplate(); // 1
+			String url = "http://localhost:9011/v1/customers/12345678901"; // 2
+			ResponseEntity<ResponseDto> response = restTemplate.exchange(url, HttpMethod.GET, request, ResponseDto.class);
+
+ 
+			ResponseDto responseDto =  response.getBody();
+			System.out.println(responseDto.getEmail());
+			System.out.println(responseDto.getCurrentAccount().getAccountNumber());
+			System.out.println(responseDto.getCurrentAccount().getCheckDigit());
+			System.out.println(responseDto.getSavingsAccount().getAccountNumber());
+			System.out.println(responseDto.getSavingsAccount().getCheckDigit());
+
+			return responseDto;
+
+		} catch (Exception Ex) {
+			throw Ex;
+		}
+	}
+	
 
 }

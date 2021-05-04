@@ -19,12 +19,10 @@ import com.impacta.transaction.repository.TransactionRepository;
 @SpringBootApplication(scanBasePackages = { "com.impacta", "com.impacta.transaction", "com.impacta.login.controller",
 		"com.impacta.transaction.service", "com.impacta.transaction.repository", "com.impacta.transaction.config",
 		"com.impacta.transaction.controller", "com.impacta.transaction.repository", "com.impacta.transaction.model" })
-public class UserServiceApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(UserServiceApplication.class, args);
+	public class Application {
+	
+		public static void main(String[] args) {
+			SpringApplication.run(Application.class, args);
+		}
+	 
 	}
-
-	 
-	 
-}
