@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,6 +40,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("/login")
 public class LoginController extends AbstractController {
+
+	public LoginController(Environment e) {
+		super(e);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
