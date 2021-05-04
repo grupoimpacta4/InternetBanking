@@ -1,0 +1,85 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: application-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: customer
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - application-gateway
+  http:
+  - match:
+    - uri:
+        exact: /v1/customers
+    - uri:
+        prefix: /v1/customers
+    route:
+    - destination:
+        host: customer-app
+        port:
+          number: 9011
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: login
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - application-gateway
+  http:
+  - match:
+    - uri:
+        exact: /login/authenticate
+    - uri:
+        exact: /login/register
+    route:
+    - destination:
+        host: login-app
+        port:
+          number: 9005
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: transaction
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - application-gateway
+  http:
+  - match:
+    - uri:
+        exact: /transaction/addTransaction
+    - uri:
+        exact: /transaction/balance
+    - uri:
+        exact: /transaction/extract
+    - uri:
+        exact: /transaction/deposit
+    - uri:
+        exact: /transaction/withdrawal
+    - uri:
+        exact: /transaction/transferByCPF
+    route:
+    - destination:
+        host: transaction-app
+        port:
+          number: 9009

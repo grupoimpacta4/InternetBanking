@@ -1,0 +1,218 @@
+##################################################################################################
+# Customer service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-app
+  labels:
+    app: customer-app
+    service: customer-app
+spec:
+  ports:
+  - port: 9011
+    name: port
+  selector:
+    app: customer-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-app
+  labels:
+    app: customer-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customer-app
+  template:
+    metadata:
+      labels:
+        app: customer-app
+    spec:
+      containers:
+      - image: asampaio3006/customer-app
+        name: customer-app
+        ports:
+        - containerPort: 9011
+      hostname: customer-app
+      restartPolicy: Always
+---
+##################################################################################################
+# DB service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: db-internet-bank
+  name: db-internet-bank
+spec:
+  ports:
+  - name: "port"
+    protocol: TCP
+    port: 3306
+    targetPort: 3306
+  selector:
+    app: db-internet-bank
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: db-internet-bank
+  name: db-internet-bank
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-internet-bank
+  template:
+    metadata:
+      labels:
+        app: db-internet-bank
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        image: mysql
+        imagePullPolicy: ""
+        name: db-internet-bank
+        ports:
+        - containerPort: 3306
+      hostname: db-internet-bank
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+---
+##################################################################################################
+# Login service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: login-app
+  name: login-app
+spec:
+  ports:
+  - name: "port"
+    protocol: TCP
+    port: 9005
+    targetPort: 9005
+  selector:
+    app: login-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: login-app
+  name: login-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: login-app
+  template:
+    metadata:
+      labels:
+        app: login-app
+    spec:
+      containers:
+      - image: asampaio3006/login-app
+        name: login-app
+        ports:
+        - containerPort: 9005
+      hostname: login-app
+      restartPolicy: Always
+---
+##################################################################################################
+# Oauth service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: oauth-app
+  name: oauth-app
+spec:
+  ports:
+  - name: "port"
+    protocol: TCP
+    port: 9007
+    targetPort: 9007
+  selector:
+    app: oauth-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oauth-app
+  name: oauth-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauth-app
+  template:
+    metadata:
+      labels:
+        app: oauth-app
+    spec:
+      containers:
+      - image: asampaio3006/oauth-app
+        name: oauth-app
+        ports:
+        - containerPort: 9007
+      hostname: oauth-app
+      restartPolicy: Always
+---
+##################################################################################################
+# Transaction service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: transaction-app
+  name: transaction-app
+spec:
+  selector:
+    matchLabels:
+      app: transaction-app
+  ports:
+  - name: "port"
+    protocol: TCP
+    port: 9009
+    targetPort: 9009
+  selector:
+    app: transaction-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: transaction-app
+  name: transaction-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transaction-app
+  template:
+    metadata:
+      labels:
+        app: transaction-app
+    spec:
+      containers:
+      - image: asampaio3006/transaction-app
+        name: transaction-app
+        ports:
+        - containerPort: 9009
+      hostname: transaction-app
+      restartPolicy: Always
+---
