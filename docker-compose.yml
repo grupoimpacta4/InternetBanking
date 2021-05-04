@@ -1,39 +1,53 @@
 version: "3"
 
 services:
-    config:
-       build:
-          context: ./config-server
-          dockerfile: Dockerfile
-       ports:
-         - 8888:8888
+    db-internet-bank:
+      image:  mysql
+      restart: always
+      container_name: db-internet-bank
+      hostname: db-internet-bank
+      ports:
+         - 3306:3306
+      environment:
+        MYSQL_ROOT_PASSWORD: "root"
 
-    login:
-      build:
-         context: ./login-service
-         dockerfile: Dockerfile
+    customer-app:
+      restart: on-failure
+      container_name: customer-app
+      hostname: customer-app
+      image: asampaio3006/customer-app
+      ports:
+        - 9011:9011
+      depends_on:
+        - db-internet-bank
+
+    login-app:
+      restart: on-failure
+      container_name: login-app
+      hostname: login-app
+      image: asampaio3006/login-app
       ports:
         - 9005:9005
+      depends_on:
+        - db-internet-bank
+        - oauth-app
+    oauth-app:
+      restart: on-failure
+      container_name: oauth-app
+      hostname: oauth-app
+      image: asampaio3006/oauth-app
+      ports:
+        - 9007:9007
+      depends_on:
+        - db-internet-bank  
     
-    bankaccount:
-       build:
-         context: ./bankAccount-service
-         dockerfile: Dockerfile
-       ports:
-         - 9011:9011
-    oauth:
-        build:
-          context: ./oauth-service
-          dockerfile: Dockerfile
-        ports:
-         - 9007:9007
-    
-    transaction:
-        build:
-          context: ./transaction-service
-          dockerfile: Dockerfile
-        ports:
-          - 9009:9009
-
- 
-   
+    transaction-app:
+      restart: on-failure
+      container_name: transaction-app
+      hostname: transaction-app
+      image: asampaio3006/transaction-app
+      ports:
+        - 9009:9009
+      depends_on:
+        - db-internet-bank
+        - oauth-app          

@@ -5,7 +5,7 @@ spring:
     application:
         name: oauth-service
     datasource:
-      url : jdbc:mysql://localhost:3306/oauth_login?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=UTC
+      url : jdbc:mysql://db-internet-bank:3306/oauth_login?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=UTC
       username : root
       password : root
       initialization-mode : always
@@ -19,14 +19,6 @@ message:
   basename: classpath:message/message.properties
   use.code.as.default.message: true
 
-eureka:
-    client:
-        register-with-eureka: true
-        fetch-registry: true
-        service-url:
-            defaultZone: http://localhost:8761/eureka/
-    instance:
-        hostname: localhost
 
 
 security:

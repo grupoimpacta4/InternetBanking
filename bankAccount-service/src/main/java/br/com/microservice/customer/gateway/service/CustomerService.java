@@ -14,7 +14,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import org.apache.http.HttpStatus;
+import org.springframework.http.HttpStatus;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class CustomerService {
 
 	public  ResponseDto findByDocument(String document) {
 		Customer newCustomer = customerRepository.findAllByDocument(document)
-				.orElseThrow(() -> new CustomerBusinessException("Customer not found", HttpStatus.SC_NOT_FOUND));
+				.orElseThrow(() -> new CustomerBusinessException("Customer not found", HttpStatus.NOT_FOUND.value()));
 		return modelMapper.map(newCustomer, ResponseDto.class);
 
 	}
@@ -110,10 +110,10 @@ public class CustomerService {
 			return modelMapper.map(customerRepository.save(newCustomer), ResponseDto.class);
 		} catch (CustomerBusinessException e) {
 			log.error("Fail request to Api Login:");
-			throw new CustomerBusinessException("Fail request to Api Login", HttpStatus.SC_BAD_REQUEST);
+			throw new CustomerBusinessException("Fail request to Api Login", HttpStatus.BAD_REQUEST.value());
 		} catch (DataAccessException e) {
 			log.error("Customer already registered:");
-			throw new CustomerBusinessException("Customer already registered", HttpStatus.SC_BAD_REQUEST);
+			throw new CustomerBusinessException("Customer already registered", HttpStatus.BAD_REQUEST.value());
 		}
 	}
 

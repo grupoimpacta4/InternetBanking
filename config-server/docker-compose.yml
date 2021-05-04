@@ -1,8 +1,0 @@
-version: '3.8'
-services:
-  internet-bank:
-    container_name: config-server
-    build: .
-    ports:
-     - "8888:8888"
-    restart: on-failure

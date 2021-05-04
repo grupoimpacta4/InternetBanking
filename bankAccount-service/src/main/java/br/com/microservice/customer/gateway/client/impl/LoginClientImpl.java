@@ -5,8 +5,8 @@ import br.com.microservice.customer.gateway.client.LoginClient;
 import br.com.microservice.customer.gateway.http.request.RequestLogin;
 import br.com.microservice.customer.gateway.http.response.ResponseLogin;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +30,7 @@ public class LoginClientImpl implements LoginClient {
                 log.info("[LoginClientImpl] - Request to Api Login");
                 return loginClient.addLogin(requestLogin); });
         } catch (Exception e) {
-            throw new CustomerBusinessException("Fail request to Api Login", HttpStatus.SC_BAD_REQUEST);
+            throw new CustomerBusinessException("Fail request to Api Login", HttpStatus.BAD_REQUEST.value());
         }
     }
 }
