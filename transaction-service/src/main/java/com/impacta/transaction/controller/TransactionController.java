@@ -150,7 +150,7 @@ public class TransactionController extends AbstractController {
 		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity request = new HttpEntity<>(requestHeaders);
 		RestTemplate restTemplate = new RestTemplate(); // 1
-		String url = "http://localhost:9011/v1/customers/12345678901"; // 2
+		String url = "http://localhost:9011/v1/customers/"+cpf; // 2
 		ResponseEntity<ResponseDto> response = restTemplate.exchange(url, HttpMethod.GET, request, ResponseDto.class);
 
 		if (type == 1) {
@@ -182,10 +182,8 @@ public class TransactionController extends AbstractController {
 			requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 			HttpEntity request = new HttpEntity<>(requestHeaders);
 			RestTemplate restTemplate = new RestTemplate(); // 1
-			String url = "http://localhost:9011/v1/customers/12345678901"; // 2
+			String url = "http://localhost:9011/v1/customers/"+cpf; // 2
 			ResponseEntity<ResponseDto> response = restTemplate.exchange(url, HttpMethod.GET, request, ResponseDto.class);
-
- 
 			ResponseDto responseDto =  response.getBody();
 			System.out.println(responseDto.getEmail());
 			System.out.println(responseDto.getCurrentAccount().getAccountNumber());
@@ -325,7 +323,7 @@ public class TransactionController extends AbstractController {
 				return new ResponseEntity<String>(addErrorMessage(ERROR_MESSAGE_ACCOUNT_NUMBER_NOT_FOUND),
 						HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			if (accountFrom == -1) {
+			if (accountTo == -1) {
 				return new ResponseEntity<String>(addErrorMessage(ERROR_MESSAGE_INACTIVE_ACCOUNT_TO),
 						HttpStatus.INTERNAL_SERVER_ERROR);
 			}
@@ -357,8 +355,8 @@ public class TransactionController extends AbstractController {
 				try {
 					withDrawal.setAccountId(accountFrom);
 					withDrawal.setValue(transfer.getValue());
-					withDrawal.setDescription_extract(transfer.getDescription_extract());
-					withDrawal.setDescription_transaction("Trasfer from 1 to 2");
+					withDrawal.setDescription_extract("Trasfer from account "+accountFrom + " to account "+accountTo);
+					withDrawal.setDescription_transaction("Trasfer from account "+accountFrom + " to account "+accountTo);
 					UUID uuidFrom = UUID.randomUUID();
 					System.out.println("UUID =" + uuidFrom.toString());
 					withDrawal.setGuidId(uuidFrom.toString());
@@ -371,8 +369,8 @@ public class TransactionController extends AbstractController {
 				try {
 					deposit.setAccountId(accountTo);
 					deposit.setValue(value);
-					deposit.setDescription_transaction("Trasfer came from 2");
-					deposit.setDescription_extract("Trasfer from 1 to 2");
+					deposit.setDescription_transaction("Trasfer came from  "+accountFrom);
+					deposit.setDescription_extract("Trasfer came from  "+accountFrom);
 					UUID uuidTo = UUID.randomUUID();
 					deposit.setGuidId(uuidTo.toString());
 					System.out.println("UUID=" + uuidTo.toString());
