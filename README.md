@@ -25,5 +25,7 @@ Implementação de um serviço de de internet banking
 - Spring Web;
 - Spring Data JPA; 
 - Lombok; 
+- docker
+- Kubernets
 
 ## ⚠️ Observações
