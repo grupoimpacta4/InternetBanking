@@ -25,11 +25,11 @@ Implementação de uma aplicação de de internet banking
 - Lombok; 
 - docker
 - Kubernets
--Istio 
--Grafana
+- Istio 
+- Grafana
 
 ## ⚠️ Observações
 - Você pode usar o nosso arquivo dockercompose(na pasta raiz) para subir somente as imagens de nossos serviços , se não quiser subir via kubernets.
-- Você pode usar a collection postman para auxiliar no testes de nossa aplicação.
+- Você pode usar a collection postman(Internet-Bank.postman_collection) para auxiliar no testes de nossa aplicação.
 
 
