@@ -1,10 +1,11 @@
 #internet-banking
 
-Implementação de um serviço de de internet banking
+Implementação de uma aplicação de de internet banking
 
 ## :wrench: Setup
 
-- Para fazer o deploy da aplicação e de nossos microserviços , você precisar ir até a nossa pasta deploy e seguir os passos citados lá. Vamos instalar o minuke, o istio , usar o minikube e startar o kubernets, fazer o deploy da aplicação , subir os pods e usar o istio e grafana para nos auxiliar a organizar nosso cluster k8s e na monitoração do mesmo.
+- Para fazer o deploy da aplicação e de nossos microserviços , você precisar ir até a nossa pasta deploy e seguir os passos citados lá. Vamos instalar o minuke, o istio , usar o minikube e startar o kubernets, fazer o deploy da aplicação , subir os pods e usar o istio e grafana para nos auxiliar a organizar nosso cluster k8s e na monitoração do mesmo. Nós geramos as imagens docker de cadas serviço desenvolvido e subimos ela para o docker hub. Então usamos o kubernets e subimos um pod para cada serviço, além do pod para o mysql. Organizamos nossos pods e suas dependências no arquvio deploy.yaml e o no arquivo yaml tem as configurações para subir um pod que servirá como nosso gateway( usando o istio).
+
 
 ## :file_folder: Diretórios
 
@@ -28,3 +29,5 @@ Implementação de um serviço de de internet banking
 -Grafana
 
 ## ⚠️ Observações
+Você pode usar o nosso arquivo dockercompose(na pasta raiz) para subir somente as imagens de nossos serviços , se não quiser subir via kubernets.
+
