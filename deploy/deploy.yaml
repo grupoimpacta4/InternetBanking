@@ -36,6 +36,7 @@ spec:
         name: customer-app
         ports:
         - containerPort: 9011
+        imagePullPolicy: Always
       hostname: customer-app
       restartPolicy: Always
 ---
@@ -126,6 +127,7 @@ spec:
         name: login-app
         ports:
         - containerPort: 9005
+        imagePullPolicy: Always
       hostname: login-app
       restartPolicy: Always
 ---
@@ -168,6 +170,7 @@ spec:
         name: oauth-app
         ports:
         - containerPort: 9007
+        imagePullPolicy: Always
       hostname: oauth-app
       restartPolicy: Always
 ---
@@ -213,6 +216,7 @@ spec:
         name: transaction-app
         ports:
         - containerPort: 9009
+        imagePullPolicy: Always
       hostname: transaction-app
       restartPolicy: Always
 ---
