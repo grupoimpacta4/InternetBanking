@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,11 +40,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("/login")
 public class LoginController extends AbstractController {
-
-	public LoginController(Environment e) {
-		super(e);
-		// TODO Auto-generated constructor stub
-	}
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -178,7 +173,7 @@ public class LoginController extends AbstractController {
 
 	private void createUser(String username, String password, String token) throws Exception {
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-		HttpPost httpPost = new HttpPost("http://localhost:9007/oauth/register");
+		HttpPost httpPost = new HttpPost("http://oauth-app:9007/oauth/register");
 		httpPost.addHeader("Authorization", "Bearer " + token);
 		httpPost.addHeader("Content-Type", "application/json");
 		String body = "{\n  \"username\" :\"" + username + "\", \n   \"enabled\":1,\n    \"password\" : \"" + password
@@ -216,7 +211,7 @@ public class LoginController extends AbstractController {
 
 	private String getToken(String user, String password) throws Exception {
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-		HttpPost httpPost = new HttpPost("http://localhost:9007/oauth/token");
+		HttpPost httpPost = new HttpPost("http://oauth-app:9007/oauth/token");
 		httpPost.addHeader("Authorization", "Basic Y2xpZW50SWQ6c2VjcmV0");
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("grant_type", "password"));

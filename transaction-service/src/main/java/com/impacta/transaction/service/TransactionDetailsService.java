@@ -133,8 +133,5 @@ public class TransactionDetailsService {
 				System.out.println("Passei aqui 2");
 				return teste;	
 	}
-	 
 
-	 
-	
 }

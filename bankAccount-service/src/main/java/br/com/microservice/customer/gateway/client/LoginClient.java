@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "login", url = "http://localhost:9005")
+@FeignClient(name = "login", url = "http://login-app:9005")
 public interface LoginClient {
 
     @PostMapping(path = "/login/register", consumes = "application/json")

@@ -12,7 +12,7 @@
 	<groupId>com.impacta</groupId>
 	<artifactId>transaction-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>user-service</name>
+	<name>transaction-service</name>
 	<description>Bank Account example using microservices.</description>
 
 	<properties>
@@ -35,9 +35,6 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
-
-
-
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -47,9 +44,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-
 		</dependency>
-
 
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
 		<dependency>
@@ -65,7 +60,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>1.18.20</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

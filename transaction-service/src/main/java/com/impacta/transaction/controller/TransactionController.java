@@ -150,7 +150,7 @@ public class TransactionController extends AbstractController {
 		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity request = new HttpEntity<>(requestHeaders);
 		RestTemplate restTemplate = new RestTemplate(); // 1
-		String url = "http://localhost:9011/v1/customers/"+cpf; // 2
+		String url = "http://customer-app:9011/v1/customers/"+cpf; // 2
 		ResponseEntity<ResponseDto> response = restTemplate.exchange(url, HttpMethod.GET, request, ResponseDto.class);
 
 		if (type == 1) {
@@ -182,7 +182,7 @@ public class TransactionController extends AbstractController {
 			requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 			HttpEntity request = new HttpEntity<>(requestHeaders);
 			RestTemplate restTemplate = new RestTemplate(); // 1
-			String url = "http://localhost:9011/v1/customers/"+cpf; // 2
+			String url = "http://customer-app:9011/v1/customers/"+cpf; // 2
 			ResponseEntity<ResponseDto> response = restTemplate.exchange(url, HttpMethod.GET, request, ResponseDto.class);
 			ResponseDto responseDto =  response.getBody();
 			System.out.println(responseDto.getEmail());
@@ -201,7 +201,7 @@ public class TransactionController extends AbstractController {
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping(value = "/balance", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getSaldo(@RequestBody TransactionDTO transacation,
-			@RequestHeader("Authorization") String auth) throws Exception {
+									  @RequestHeader("Authorization") String auth) throws Exception {
 		try {
 
 			String token = auth.replaceAll("Bearer ", "");
@@ -217,8 +217,8 @@ public class TransactionController extends AbstractController {
 			System.out.println(" cc = "+contaCorrenteIdUser);
 
 			System.out.println("cp "+contaPoupancaIdUser);
-			
-			
+
+
 			LOGGER.info("Starting balance api");
 
 			LOGGER.info("Gettting balance api account - Conta corrente");
@@ -229,7 +229,7 @@ public class TransactionController extends AbstractController {
 			LOGGER.info("Balance for account " + contaCorrenteIdUser + " is " + saldoAtualContaCorrente);
 
 			Balance saldoContaCorrente = new Balance(saldoAtualContaCorrente, "Conta Corrente", "BRL", "R$");
-			
+
 			LOGGER.info("Getting balance api account - Poupança");
 			LOGGER.info("Getting balance api for account " + contaPoupancaIdUser);
 
@@ -261,7 +261,7 @@ public class TransactionController extends AbstractController {
 						HttpStatus.INTERNAL_SERVER_ERROR);
 
 			}
-			
+
 			LOGGER.info("Starting deposit api");
 			LOGGER.info("Value of transaction is " + transacation.getValue());
 			LOGGER.info("Account of transaction is " + transacation.getAccountId());
@@ -296,7 +296,7 @@ public class TransactionController extends AbstractController {
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@PostMapping(value = "/transferByCPF", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createdInternTransfer(@RequestBody TransferDTO transfer,
-			@RequestHeader("Authorization") String auth) throws Exception {
+												   @RequestHeader("Authorization") String auth) throws Exception {
 		try {
 
 			LOGGER.info("Starting Transfer api");
@@ -488,7 +488,7 @@ public class TransactionController extends AbstractController {
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping(value = "/extract", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getExtract(@RequestBody TransactionDTO transacation,
-			@RequestHeader("Authorization") String auth) throws Exception {
+										@RequestHeader("Authorization") String auth) throws Exception {
 		try {
 
 			LOGGER.info("Extract has started");
