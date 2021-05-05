@@ -4,10 +4,7 @@ Implementação de um serviço de de internet banking
 
 ## :wrench: Setup
 
-- Crie um schema no MySQL com o nome de `microservice_department` e outro com o nome de `microservice_user`;
-- Verifique as variáveis de aplicação no arquivo `application.properties` em todos os projetos;
-- Verifique se é necessário modificar a permissão do arquivo `mvnw` utilizando `chmod +x mvnw`;
-- Para rodar qualquer um dos projetos, entre na pasta do mesmo e rode: `./mvnw spring-boot:run`.
+- Para fazer o deploy da aplicação e de nossos microserviços , você precisar ir até a nossa pasta deploy e seguir os passos citados lá. Vamos instalar o minuke, o istio , usar o minikube e startar o kubernets, fazer o deploy da aplicação , subir os pods e usar o istio e grafana para nos auxiliar a organizar nosso cluster k8s e na monitoração do mesmo.
 
 ## :file_folder: Diretórios
 
@@ -27,5 +24,7 @@ Implementação de um serviço de de internet banking
 - Lombok; 
 - docker
 - Kubernets
+-Istio 
+-Grafana
 
 ## ⚠️ Observações
