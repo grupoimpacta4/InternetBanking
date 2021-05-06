@@ -1,5 +1,12 @@
 #internet-banking
 
+Grupo: 
+Andrade Alves Sampaio
+David Stefano Aranda da Silva
+Irai Fernandes Daniele
+Marilia Gabriela Pires Matos
+Paolo Angelo Martins Zilioti
+
 Implementação de uma aplicação de de internet banking
 
 ## :wrench: Setup
