@@ -38,5 +38,5 @@ Implementação de uma aplicação de de internet banking
 ## ⚠️ Observações
 - Você pode usar o nosso arquivo dockercompose(na pasta raiz) para subir somente as imagens de nossos serviços , se não quiser subir via kubernets.
 - Você pode usar a collection postman(Internet-Bank.postman_collection) para auxiliar no testes de nossa aplicação.
-
+- Ler o arquivo documentação.pdf para realizar os testes
 
